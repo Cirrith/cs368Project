@@ -3,8 +3,8 @@
 CC=g++
 CFLAGS=-c -Wall -std=c++11
 LDFLAGS=
-SOURCES=main.cpp a2.cpp trim.cpp
-DEPS=a2.hpp trim.hpp
+SOURCES=main.cpp
+DEPS=board.hpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=main
 
