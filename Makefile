@@ -4,7 +4,7 @@ CC=g++
 CFLAGS=-c -Wall -std=c++11
 LDFLAGS=
 SOURCES=main.cpp
-DEPS=board.hpp
+DEPS=board.hpp except.hpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=main
 

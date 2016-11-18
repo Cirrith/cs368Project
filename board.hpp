@@ -1,15 +1,41 @@
-///////////////////////////////////////////////////////////////////////////////
-//
-//
-//
-//
-//
-///////////////////////////////////////////////////////////////////////////////
-
 #ifndef PROJECT_BOARD_HPP
 #define PROJECT_BOARD_HPP
 
+/*/////////////////////////////////////////////////////////////////////////////
+//
+// FILENAME: board.hpp
+//
+// DESCRIPTION:
+//  Provides template for board of tic tac toe
+//  Two primary templates are defined
+//      class TTTBoard<T> 
+//      class TTTBoard<TTTBoard<T>>
+//  Data is stored in vector
+//
+// PUBILC FUNCTIONS:
+//  TTTBoard<T>:
+//      TTTBoard();
+//      TTTBoard(T init);
+//      T getPos(int x, int y);
+//      void setPos(int x, int y, T val);
+//      bool checkWin(T player);
+//      void printBoard();
+//
+//  TTTBoard<TTTBoard<T>>:
+//      TTTBoard(T init);
+//      TTTBoard<T> getPos(int x, int y);
+//      void setPos(int x, int y, TTTBoard<T> val);
+//      bool checkWin();
+//      void printBoard();
+//
+// NOTES:
+//  TODO: Setup checks for setPos
+//  TODO: Exceptions
+//
+/////////////////////////////////////////////////////////////////////////////*/
+
 #include<iostream>
+#include"except.hpp"
 
 using std::endl;
 using std::cout;
@@ -20,12 +46,11 @@ class TTTBoard {
 	bool won;
     T info[3][3];
 
-	void checkPos(int x, int y)
-	{
-		//if (x < 0 || x > 2)
-			// throw BadCordsExcep;
-		//if (y < 0 || y > 2)
-			// throw BadCordsExcep;
+	void checkPos(int x, int y) {
+		if (x < 0 || x > 2)
+			throw BadCordsExcept;
+		if (y < 0 || y > 2)
+			throw BadCordsExcept;
 	}
 
   public:
@@ -33,6 +58,15 @@ class TTTBoard {
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				info[i][j] = (T)NULL;
+			}
+		}
+		won = false;
+	}
+    
+	TTTBoard(T init) {
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				info[i][j] = init;
 			}
 		}
 		won = false;
@@ -46,7 +80,7 @@ class TTTBoard {
     void setPos(int x, int y, T val) {
 		checkPos(x, y);
 		if (won)
-			// throw BOARD_WON_EXCEP;
+			throw BoardWonExcept;
 		info[x][y] = val;
     }
     
@@ -98,7 +132,9 @@ class TTTBoard {
 	void printBoard() {
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				cout << info[i][j] << " ";
+				cout << info[i][j];
+                if(j < 2)
+                    cout << " ";
 			}
 			cout << endl;
 		}
@@ -129,7 +165,7 @@ class TTTBoard<TTTBoard<T>> {
 		{
 			for (int j = 0; j < 3; j++)
 			{
-				info[i][j] = TTTBoard<T>();
+				info[i][j] = TTTBoard<T>(init);
 			}
 		}
 
@@ -192,6 +228,8 @@ class TTTBoard<TTTBoard<T>> {
 			for (int j = 0; j < 3; j++)
 			{
 				info[i][j].printBoard();
+                if(j < 2)
+                    cout << endl;
 			}
 			cout << endl;
 		}
