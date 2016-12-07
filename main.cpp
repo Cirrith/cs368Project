@@ -26,14 +26,32 @@
 //      void printBoard();
 //
 // NOTES:
-//  TODO: Setup checks for setPos
-//  TODO: Exceptions
 //
 /////////////////////////////////////////////////////////////////////////////*/
 
 #include"board.hpp"
 
+using std::cout;
+using std::endl;
+
 int main() {
-    TTTBoard<TTTBoard<char>> board('X');
+    TTTBoard<TTTBoard<char>> board('O', 'X');
+    board.printBoard();
+
+    cout << endl;
+    cout << "------------------------" << endl;
+    cout << endl;
+
+    for (int gRow = 0; gRow < 3; gRow++) {
+      for (int gCol = 0; gCol < 3; gCol++) {
+        TTTBoard<char> &local = board.getPos(gRow, gCol);
+        for (int lRow = 0; lRow < 3; lRow++) {
+          for (int lCol = 0; lCol < 3; lCol++) {
+            local.setPos(lRow, lCol, 'X');
+          }
+        }
+      }
+    }
+
     board.printBoard();
 }
