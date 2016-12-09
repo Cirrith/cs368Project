@@ -60,36 +60,26 @@ int main() {
   
   getValues(num);
   
-  game.setCurBoard(num[0], num[1]);
-  
-  game.setPos(1, 1);
-  
-  game.printWholeBoard();
+  game.setCurBoard(num[0], num[1]);  // Get game started
   
   while(!game.isFinished()) {
-	
-  }
-
-
-    /*
-    TTTBoard<TTTBoard<char>> board('O', 'X');
-    board.printBoard();
-
-    cout << endl;
-    cout << "------------------------" << endl;
-    cout << endl;
-
-    for (int gRow = 0; gRow < 3; gRow++) {
-      for (int gCol = 0; gCol < 3; gCol++) {
-        TTTBoard<char> &local = board.getPos(gRow, gCol);
-        for (int lRow = 0; lRow < 3; lRow++) {
-          for (int lCol = 0; lCol < 3; lCol++) {
-            local.setPos(lRow, lCol, 'X');
-          }
-        }
-      }
+    cout << "Whole Board" << endl;
+    game.printWholeBoard();
+    if(game.curWon()) {
+      cout << "The current board is won, choose a new one" << endl;
+      getValues(num);
+      game.setCurBoard(num[0], num[1]);
     }
-
-    board.printBoard();
-  */
+    cout << endl << "Current Board" << endl;
+    game.printCurBoard();
+    
+    cout << "Where do you want to go?" << endl;
+    cout << "Player: " << game.getCurPlayer() << endl;
+    
+    getValues(num);
+    
+    game.setPos(num[0], num[1]);
+    
+    game.next();
+  }
 }
