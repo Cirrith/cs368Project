@@ -75,14 +75,17 @@ class TTTBoard {
       return info[x][y];
     }
   
-      void setPos(const int x, const int y, const T val) {
+    void setPos(const int x, const int y, const T val) {
       checkPos(x, y);
       if (won)
         throw BoardWonExcept();
       info[x][y] = val;
-      }
+    }
       
-      const bool checkWin(const T player) {
+    const bool checkWin(const T player) {
+      if(won) {
+        return true;
+      }
       if ((info[0][0] == player) && (info[1][0] == player) && (info[2][0] == player)) {
         won = true;
         return true;
@@ -109,8 +112,8 @@ class TTTBoard {
         return true;
       } else
         return false;
-      }
-      
+    }
+    
     void printBoard() {
       for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
@@ -140,7 +143,6 @@ class TTTBoard {
 template <typename T>
 class TTTBoard<TTTBoard<T>> {
   private:
-    bool won;
     TTTBoard<T> info[3][3];
 
     void checkPos(const int x, const int y) {
@@ -157,8 +159,6 @@ class TTTBoard<TTTBoard<T>> {
           info[i][j] = TTTBoard<T>(init);
         }
       }
-  
-      won = false;
     }
   
     TTTBoard<T>& getPos(const int x, const int y) {
@@ -168,35 +168,25 @@ class TTTBoard<TTTBoard<T>> {
   
     void setPos(const int x, const int y, const TTTBoard<T> val) {
       checkPos(x, y);
-      if (won)
-        throw BoardWonExcept();
       info[x][y] = val;
     }
   
-    bool checkWin() {
+    const bool checkWin(const T player) {
       if (info[0][0].checkWin(player) && info[1][0].checkWin(player) && info[2][0].checkWin(player)) {
-        won = true;
         return true;
       } else if (info[0][1].checkWin(player) && info[1][1].checkWin(player) && info[2][1].checkWin(player)) {
-        won = true;
         return true;
       } else if (info[0][2].checkWin(player) && info[1][2].checkWin(player) && info[2][2].checkWin(player)) {
-        won = true;
         return true;
       } else if (info[0][0].checkWin(player) && info[0][1].checkWin(player) && info[0][2].checkWin(player)) {
-        won = true;
         return true;
       } else if (info[1][0].checkWin(player) && info[1][1].checkWin(player) && info[1][2].checkWin(player)) {
-        won = true;
         return true;
       } else if (info[2][0].checkWin(player) && info[2][1].checkWin(player) && info[2][2].checkWin(player)) {
-        won = true;
         return true;
       } else if (info[0][0].checkWin(player) && info[1][1].checkWin(player) && info[2][2].checkWin(player)) {
-        won = true;
         return true;
       } else if (info[0][2].checkWin(player) && info[1][1].checkWin(player) && info[2][0].checkWin(player)) {
-        won = true;
         return true;
       } else
         return false;

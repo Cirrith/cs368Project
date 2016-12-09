@@ -3,23 +3,25 @@
 
 #include "board.hpp"
 
-class game {
+class Game {
   private:
     char players[2];
     char curPlayer;
-    board<board<char>> board;
+    TTTBoard<TTTBoard<char>> board;
     int curBoard[2];
     int nextBoard[2];
     bool finished;
 
   public:
-    game();
-    bool isFinished();
-    char getCurPlayer();
-    char next();
+    Game();
+    const bool isFinished() const;
+    const bool curWon();
+    const char getCurPlayer() const;
+    const char next();
+    void setCurBoard(int x, int y);
     void printWholeBoard();
     void printCurBoard();
     void setPos(int x, int y);
-}
+};
 
 #endif
